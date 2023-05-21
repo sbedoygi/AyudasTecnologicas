@@ -1,4 +1,5 @@
 ﻿using AyudasTecnologicas.DAL;
+using AyudasTecnologicas.DAL.Entities;
 using AyudasTecnologicas.Helpers;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -35,12 +36,12 @@ namespace AyudasTecnologicas.Servicess
         }
 
 
-        public async Task<IEnumerable<SelectListItem>> GetDDLCategoriesAsync(IEnumerable<Category> filterCategories)
+        public async Task<IEnumerable<SelectListItem>> GetDDLCategoriesAsync(IEnumerable<Services> filterCategories)
         {
-            List<Category> categories = await _context.Categories.ToListAsync(); //me traigo TODAS las categorías que tengo guardadas en BD
-            List<Category> categoriesFiltered = new(); //aquí declaro una lista vacía que es la que tendrá los filtros
+            List<Services> categories = await _context.Categories.ToListAsync(); //me traigo TODAS las categorías que tengo guardadas en BD
+            List<Services> categoriesFiltered = new(); //aquí declaro una lista vacía que es la que tendrá los filtros
 
-            foreach (Category category in categories)
+            foreach (Services category in categories)
                 if (!filterCategories.Any(c => c.Id == category.Id))
                     categoriesFiltered.Add(category);
 
