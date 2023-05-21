@@ -1,6 +1,8 @@
 ﻿namespace AyudasTecnologicas.Enum
 {
-    public class UserType
+    public enum UserType
     {
+        Admin,
+        User
     }
 }

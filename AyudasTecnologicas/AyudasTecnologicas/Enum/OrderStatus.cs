@@ -1,6 +1,11 @@
 ﻿namespace AyudasTecnologicas.Enum
 {
-    public class OrderStatus
+    public enum OrderStatus
     {
+        Nuevo,
+        Despachado,
+        Enviado,
+        Confirmado,
+        Cancelado
     }
 }
