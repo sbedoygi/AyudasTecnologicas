@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <Folder Include="carpetasdepruebas\" />
+    <Folder Include="Views\prueba\" />
   </ItemGroup>
 
 </Project>
