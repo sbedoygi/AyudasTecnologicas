@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AyudasTecnologicas.Enum;
+using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
 namespace AyudasTecnologicas.DAL.Entities

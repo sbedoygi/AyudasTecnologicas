@@ -5,7 +5,7 @@ namespace AyudasTecnologicas.DAL.Entities
 {
     public class ServicesImage : Entity
     {
-        public Service Service { get; set; }
+        public TechnicalServices Product { get; set; }
 
         [Display(Name = "Foto")]
         public Guid ImageId { get; set; }

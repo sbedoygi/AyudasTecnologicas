@@ -32,17 +32,17 @@ namespace AyudasTecnologicas.DAL.Entities
 
             public ICollection<ServicesCategory> ServicesCategories { get; set; }
 
-            [Display(Name = "Categorías")]
+            [Display(Name = "Categorías de servicios")]
             public int CategoriesNumber => ServicesCategories == null ? 0 : ServicesCategories.Count;
 
-            public ICollection<ServicesImage> ProductImages { get; set; }
+            public ICollection<ServicesImage> ServicesImages { get; set; }
 
             [Display(Name = "Número Fotos")]
-            public int ImagesNumber => ProductImages == null ? 0 : ProductImages.Count;
+            public int ImagesNumber => ServicesImages == null ? 0 : ServicesImages.Count;
 
             [Display(Name = "Foto")]
-            public string ImageFullPath => ProductImages == null || ProductImages.Count == 0
+            public string ImageFullPath => ServicesImages == null || ServicesImages.Count == 0
                 ? $"https://localhost:7158/images/NoImage.png"
-                : ProductImages.FirstOrDefault().ImageFullPath;
+                : ServicesImages.FirstOrDefault().ImageFullPath;
         }
     }

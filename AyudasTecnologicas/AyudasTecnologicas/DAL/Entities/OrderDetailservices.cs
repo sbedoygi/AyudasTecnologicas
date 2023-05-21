@@ -14,7 +14,7 @@ namespace AyudasTecnologicas.DAL.Entities
         [Display(Name = "Comentarios")]
         public string? Remarks { get; set; }
 
-        public Product Product { get; set; }
+        public TechnicalServices Product { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N2}")]
         [Display(Name = "Cantidad")]

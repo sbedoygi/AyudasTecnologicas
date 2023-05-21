@@ -1,4 +1,6 @@
-﻿namespace AyudasTecnologicas.DAL.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AyudasTecnologicas.DAL.Entities
 {
     public class TemporalService : Entity
     {
@@ -6,7 +8,7 @@
 
         public User User { get; set; }
 
-        public Product Product { get; set; }
+        public TechnicalServices Product { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N2}")]
         [Display(Name = "Cantidad")]
