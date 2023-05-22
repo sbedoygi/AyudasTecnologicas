@@ -7,10 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="carpetasdepruebas\**" />
     <Compile Remove="Servicess\**" />
+    <Compile Remove="Views\prueba\**" />
+    <Content Remove="carpetasdepruebas\**" />
     <Content Remove="Servicess\**" />
+    <Content Remove="Views\prueba\**" />
+    <EmbeddedResource Remove="carpetasdepruebas\**" />
     <EmbeddedResource Remove="Servicess\**" />
+    <EmbeddedResource Remove="Views\prueba\**" />
+    <None Remove="carpetasdepruebas\**" />
     <None Remove="Servicess\**" />
+    <None Remove="Views\prueba\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,11 +30,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="carpetasdepruebas\" />
-    <Folder Include="Views\prueba\" />
   </ItemGroup>
 
 </Project>
