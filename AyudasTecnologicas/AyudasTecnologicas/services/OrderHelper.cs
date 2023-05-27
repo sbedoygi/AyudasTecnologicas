@@ -26,13 +26,13 @@ namespace AyudasTecnologicas.servicios
                 CreatedDate = DateTime.Now,
                 User = showCartViewModel.User,
                 Remarks = showCartViewModel.Remarks,
-                OrderDetailservices = new List<OrderDetail>(),
+                OrderDetails = new List<OrderDetailservices>(),
                 OrderStatus = OrderStatus.Nuevo
             };
 
-            foreach (TemporalService? item in showCartViewModel.TemporalService)
+            foreach (TemporalService? item in showCartViewModel.TemporalSales)
             {
-                order.OrderDetail.Add(new OrderDetails
+                order.OrderDetails.Add(new OrderDetailservices
                 {
                     Product = item.Product,
                     Quantity = item.Quantity,
