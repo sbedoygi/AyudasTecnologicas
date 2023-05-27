@@ -2,6 +2,7 @@
 using AyudasTecnologicas.DAL.Entities;
 using AyudasTecnologicas.Helpers;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace AyudasTecnologicas.servicios
 {

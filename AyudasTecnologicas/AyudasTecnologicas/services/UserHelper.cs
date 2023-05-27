@@ -2,6 +2,7 @@
 using AyudasTecnologicas.DAL;
 using AyudasTecnologicas.Helpers;
 using Microsoft.AspNetCore.Identity;
+using AyudasTecnologicas.Models;
 
 namespace AyudasTecnologicas.servicios
 {
