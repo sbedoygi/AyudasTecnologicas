@@ -29,9 +29,9 @@ namespace AyudasTecnologicas.servicios
                 OrderStatus = OrderStatus.Nuevo
             };
 
-            foreach (TemporalService? item in showCartViewModel.TemporalService)
+            foreach (TemporalService? item in showCartViewModel.emporalService)
             {
-                order.OrderDetails.Add(new OrderDetailServuces
+                order.OrderDetails.Add(new OrderDetails
                 {
                     Product = item.Product,
                     Quantity = item.Quantity,

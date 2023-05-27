@@ -9,7 +9,7 @@ namespace AyudasTecnologicas.Helpers
 
         Task<IdentityResult> AddUserAsync(User user, string password);
 
-        Task<User> AddUserAsync(AddUserViewModel addUserViewModel);
+        Task<User> AddUserAsync(Models.AddUserViewModel addUserViewModel);
 
         Task AddRoleAsync(string roleName); //Yo tengo los Roles: Admin y User, estos dos roles los va a agregar en la tabla AspNetRoles
 
@@ -17,7 +17,7 @@ namespace AyudasTecnologicas.Helpers
 
         Task<bool> IsUserInRoleAsync(User user, string roleName);
 
-        Task<SignInResult> LoginAsync(LoginViewModel loginViewModel);
+        Task<SignInResult> LoginAsync(Models.LoginViewModel loginViewModel);
 
         Task LogoutAsync();
 
