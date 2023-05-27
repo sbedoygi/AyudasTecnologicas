@@ -2,7 +2,7 @@
 using AyudasTecnologicas.DAL;
 using AyudasTecnologicas.Enum;
 using AyudasTecnologicas.Helpers;
-using Azure;
+using AyudasTecnologicas.Models;
 
 namespace AyudasTecnologicas.servicios
 {
@@ -29,9 +29,9 @@ namespace AyudasTecnologicas.servicios
                 OrderStatus = OrderStatus.Nuevo
             };
 
-            foreach (TemporalService? item in showCartViewModel.emporalService)
+            foreach (TemporalService? item in showCartViewModel.TemporalService)
             {
-                order.OrderDetails.Add(new OrderDetails
+                order.OrderDetailservices.Add(new OrderDetails
                 {
                     Product = item.Product,
                     Quantity = item.Quantity,

@@ -1,6 +1,7 @@
 ﻿using AyudasTecnologicas.DAL.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
+using AyudasTecnologicas.Utilities;
 
 namespace AyudasTecnologicas.Models
 {
