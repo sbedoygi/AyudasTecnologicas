@@ -1,5 +1,6 @@
-﻿using AyudasTecnologicas.Models;
-using Azure;
+﻿using AyudasTecnologicas.Common;
+using AyudasTecnologicas.Models;
+
 
 namespace AyudasTecnologicas.Helpers
 {

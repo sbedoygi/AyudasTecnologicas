@@ -3,6 +3,7 @@ using AyudasTecnologicas.DAL;
 using AyudasTecnologicas.Enum;
 using AyudasTecnologicas.Helpers;
 using AyudasTecnologicas.Models;
+using AyudasTecnologicas.Common;
 
 namespace AyudasTecnologicas.servicios
 {
@@ -25,13 +26,13 @@ namespace AyudasTecnologicas.servicios
                 CreatedDate = DateTime.Now,
                 User = showCartViewModel.User,
                 Remarks = showCartViewModel.Remarks,
-                OrderDetails = new List<OrderDetail>(),
+                OrderDetailservices = new List<OrderDetail>(),
                 OrderStatus = OrderStatus.Nuevo
             };
 
             foreach (TemporalService? item in showCartViewModel.TemporalService)
             {
-                order.OrderDetailservices.Add(new OrderDetails
+                order.OrderDetail.Add(new OrderDetails
                 {
                     Product = item.Product,
                     Quantity = item.Quantity,
