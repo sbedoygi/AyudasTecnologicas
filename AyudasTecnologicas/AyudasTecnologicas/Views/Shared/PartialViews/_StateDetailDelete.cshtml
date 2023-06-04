@@ -1,6 +1,29 @@
-﻿namespace AyudasTecnologicas.Views.Shared.PartialViews
-{
-    public class _StateDetailDelete
-    {
-    }
-}
+﻿@model AyudasTecnologicas.DAL.Entities.State
+
+<hr />
+<dl class="row">
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Name)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Name)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.CitiesNumber)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.CitiesNumber)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.CreatedDate)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.CreatedDate)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.ModifiedDate)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.ModifiedDate)
+    </dd>
+</dl>
