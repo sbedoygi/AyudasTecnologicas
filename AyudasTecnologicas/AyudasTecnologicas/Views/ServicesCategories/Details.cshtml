@@ -1,6 +1,17 @@
-﻿namespace AyudasTecnologicas.Views.ServicesCategories
-{
-    public class Details
-    {
-    }
+﻿@model AyudasTecnologicas.DAL.Entities.Services
+
+@{
+    ViewData["Title"] = "Details";
 }
+
+<h1>Detalles</h1>
+
+<div>
+    <h4>Categoría</h4>
+    <partial name="../Shared/PartialViews/_ServicesDetailDelete" />
+</div>
+<div>
+    <br />
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-outline-warning">Editar</a>
+    <a asp-action="Index" class="btn btn-outline-success">Regresar</a>
+</div>
