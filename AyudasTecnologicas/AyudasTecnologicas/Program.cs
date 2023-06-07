@@ -1,12 +1,16 @@
 using AyudasTecnologicas.DAL;
 using AyudasTecnologicas.DAL.Entities;
 using AyudasTecnologicas.Helpers;
+using AyudasTecnologicas.services;
 using AyudasTecnologicas.servicios;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 using System.Text.Json.Serialization;
+
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +25,8 @@ builder.Services.AddDbContext<DataBaseContext>(
 
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
+//Builder para llamar la clase SeederDb.cs|
+builder.Services.AddTransient<SeederDb>();
 
 //Builder para llamar la interfaz IUserHelper.cs
 builder.Services.AddScoped<IUserHelper, UserHelper>();
@@ -28,7 +34,8 @@ builder.Services.AddScoped<IUserHelper, UserHelper>();
 //Builder para llamar la interfaz IDropDownListHelper.cs
 builder.Services.AddScoped<IDropDownListHelper, DropDownListHelper>();
 
-
+//Builder para llamar la interfaz IDropDownListHelper.cs
+builder.Services.AddScoped<IAzureBlobHelper, AzureBlobHelper>();
 
 //Builder para llamar la interfaz IOrderHelper.cs
 builder.Services.AddScoped<IOrderHelper, OrderHelper>();
@@ -68,7 +75,17 @@ var app = builder.Build();
 
 app.UseRequestLocalization();
 
+SeederData();
+void SeederData()
+{
+    IServiceScopeFactory? scopedFactory = app.Services.GetService<IServiceScopeFactory>();
 
+    using (IServiceScope? scope = scopedFactory.CreateScope())
+    {
+        SeederDb? service = scope.ServiceProvider.GetService<SeederDb>();
+        service.SeedAsync().Wait();
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
