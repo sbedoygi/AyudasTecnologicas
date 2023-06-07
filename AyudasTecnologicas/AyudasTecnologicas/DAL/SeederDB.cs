@@ -175,7 +175,7 @@ namespace AyudasTecnologicas.DAL
                 await AddProductAsync("Memoria Ram", 300000M, 12F, new List<string>() { "capacidad total: 8gb", "ddr4 2133mhz" }, new List<string>() { "Medias2.png" });
                 await AddProductAsync("Cable USB tipo C ", 5000000M, 12F, new List<string>() { "Tecnología", "USB " }, new List<string>() { "TvOled.png", "TvOled2.png" });
                 await AddProductAsync("Disco estado solido", 5000000M, 12F, new List<string>() { " Kingston M.2 PCIE 500Gb" }, new List<string>() { "PS5.png", "PS52.png" });
-                await 
+                 
             }
         }
 
