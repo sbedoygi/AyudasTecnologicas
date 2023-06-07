@@ -76,9 +76,9 @@ namespace AyudasTecnologicas.Controllers
 
                     if (imageId != Guid.Empty)
                     {
-                        product.ProductImages = new List<ProductImage>()
+                        product.ServicesImages = new List<ServicesImage>()
                         {
-                            new ProductImage {
+                            new ServicesImage {
                                 ImageId = imageId,
                                 CreatedDate = DateTime.Now,
                             }
@@ -117,7 +117,7 @@ namespace AyudasTecnologicas.Controllers
             TechnicalServices product = await _context.Products.FindAsync(productId);
             if (product == null) return NotFound();
 
-            EditProductViewModel editProductViewModel = new()
+            EditTechnicalServicesViewModel editProductViewModel = new()
             {
                 Description = product.Description,
                 Id = product.Id,
@@ -131,13 +131,13 @@ namespace AyudasTecnologicas.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid? Id, EditProductViewModel editProductViewModel)
+        public async Task<IActionResult> Edit(Guid? Id, EditTechnicalServicesViewModel editProductViewModel)
         {
             if (Id != editProductViewModel.Id) return NotFound();
 
             try
             {
-                Product product = await _context.Products.FindAsync(editProductViewModel.Id);
+                TechnicalServices product = await _context.Products.FindAsync(editProductViewModel.Id);
 
                 //Aquí sobreescribo para luego guardar los cambios en BD
                 product.Description = editProductViewModel.Description;
@@ -170,10 +170,12 @@ namespace AyudasTecnologicas.Controllers
             if (productId == null) return NotFound();
 
             TechnicalServices product = await _context.Products
-                .Include(p => p.ProductImages) // Inner Join entre Product - ProductImages
-                .Include(p => p.ProductCategories) // Inner Join entre Product - ProductCategories
+                .Include(p => p.ServicesImages) // Inner Join entre Product - ProductImages
+                .Include(p => p.ServicesCategories) // Inner Join entre Product - ProductCategories
                 .ThenInclude(pc => pc.Category) // Inner Join entre ProductCategories - Categories
                 .FirstOrDefaultAsync(p => p.Id == productId);
+
+
 
             if (product == null) return NotFound();
 
@@ -206,16 +208,16 @@ namespace AyudasTecnologicas.Controllers
                 {
                     Guid imageId = await _azureBlobHelper.UploadAzureBlobAsync(addProductImageViewModel.ImageFile, "products");
 
-                    Product product = await _context.Products.FindAsync(addProductImageViewModel.ProductId);
+                    TechnicalServices product = await _context.Products.FindAsync(addProductImageViewModel.ProductId);
 
-                    ProductImage productImage = new()
+                    ServicesImage ServicesImage = new()
                     {
                         Product = product,
                         ImageId = imageId,
                         CreatedDate = DateTime.Now,
                     };
 
-                    _context.Add(productImage);
+                    _context.Add(ServicesImage);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Details), new { productId = product.Id });
                 }
@@ -232,37 +234,37 @@ namespace AyudasTecnologicas.Controllers
         {
             if (imageId == null) return NotFound();
 
-            ProductImage productImage = await _context.ProductImages
+            ServicesImage ServicesImage = await _context.ProductImages
                 .Include(pi => pi.Product)
                 .FirstOrDefaultAsync(pi => pi.Id == imageId);
 
-            if (productImage == null) return NotFound();
+            if (ServicesImage == null) return NotFound();
 
-            await _azureBlobHelper.DeleteAzureBlobAsync(productImage.ImageId, "products");
+            await _azureBlobHelper.DeleteAzureBlobAsync(ServicesImage.ImageId, "products");
 
-            _context.ProductImages.Remove(productImage);
+            _context.ProductImages.Remove(ServicesImage);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Details), new { productId = productImage.Product.Id });
+            return RedirectToAction(nameof(Details), new { productId = ServicesImage.Product.Id });
         }
 
         public async Task<IActionResult> AddCategory(Guid? productId)
         {
             if (productId == null) return NotFound();
 
-            Product product = await _context.Products
-                .Include(p => p.ProductCategories)
+            TechnicalServices product = await _context.Products
+                .Include(p => p.ServicesCategories)
                 .ThenInclude(pc => pc.Category)
                 .FirstOrDefaultAsync(p => p.Id == productId);
 
             if (product == null) return NotFound();
 
-            List<Category> categories = product.ProductCategories.Select(pc => new Category
+            List<Services> categories = product.ServicesCategories.Select(pc => new Services
             {
                 Id = pc.Category.Id,
                 Name = pc.Category.Name, //Aquí coloco las N categoríes que le agregué a ese prod: GAMERS, TECHOLOGY
             }).ToList();
 
-            AddProductCategoryViewModel addProductCategoryViewModel = new()
+            AddTechnicalServicesViewModel addProductCategoryViewModel = new()
             {
                 ProductId = product.Id,
                 Categories = await _dropDownListHelper.GetDDLCategoriesAsync(categories),
@@ -273,22 +275,22 @@ namespace AyudasTecnologicas.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddCategory(AddProductCategoryViewModel addProductCategoryViewModel)
+        public async Task<IActionResult> AddCategory(AddTechnicalServicesViewModel AddTechnicalServicesViewModel)
         {
-            Product product = await _context.Products
-                .Include(p => p.ProductCategories)
+            TechnicalServices product = await _context.Products
+                .Include(p => p.ServicesCategories)
                 .ThenInclude(pc => pc.Category)
-                .FirstOrDefaultAsync(p => p.Id == addProductCategoryViewModel.ProductId);
+                .FirstOrDefaultAsync(p => p.Id == AddTechnicalServicesViewModel.ProductId);
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    Category category = await _context.Categories.FindAsync(addProductCategoryViewModel.CategoryId);
+                    Services category = await _context.Categories.FindAsync(AddTechnicalServicesViewModel.CategoryId);
 
                     if (product == null || category == null) return NotFound();
 
-                    ProductCategory productCategory = new()
+                  ServicesCategory productCategory = new()
                     {
                         Product = product,
                         Category = category
@@ -300,26 +302,26 @@ namespace AyudasTecnologicas.Controllers
                 }
                 catch (Exception exception)
                 {
-                    addProductCategoryViewModel.Categories = await _dropDownListHelper.GetDDLCategoriesAsync();
+                    AddTechnicalServicesViewModel.Categories = await _dropDownListHelper.GetDDLCategoriesAsync();
                     ModelState.AddModelError(string.Empty, exception.Message);
                 }
             }
 
-            List<Category> categories = product.ProductCategories.Select(pc => new Category
+            List<Services> categories = product.ServicesCategories.Select(pc => new Services
             {
                 Id = pc.Category.Id,
                 Name = pc.Category.Name, //Aquí coloco las N categoríes que le agregué a ese prod: GAMERS, TECHOLOGY
             }).ToList();
 
-            addProductCategoryViewModel.Categories = await _dropDownListHelper.GetDDLCategoriesAsync(categories);
-            return View(addProductCategoryViewModel);
+            AddTechnicalServicesViewModel.Categories = await _dropDownListHelper.GetDDLCategoriesAsync(categories);
+            return View(AddTechnicalServicesViewModel);
         }
 
         public async Task<IActionResult> DeleteCategory(Guid? categoryId)
         {
             if (categoryId == null) return NotFound();
 
-            ProductCategory productCategory = await _context.ProductCategories
+            ServicesCategory productCategory = await _context.ProductCategories
                 .Include(pc => pc.Product)
                 .FirstOrDefaultAsync(pc => pc.Id == categoryId);
             if (productCategory == null) return NotFound();
@@ -333,9 +335,9 @@ namespace AyudasTecnologicas.Controllers
         {
             if (productId == null) return NotFound();
 
-            Product product = await _context.Products
-                .Include(p => p.ProductCategories)
-                .Include(p => p.ProductImages)
+            TechnicalServices product = await _context.Products
+                .Include(p => p.ServicesCategories)
+                .Include(p => p.ServicesImages)
                 .FirstOrDefaultAsync(p => p.Id == productId);
             if (product == null) return NotFound();
 
@@ -344,17 +346,17 @@ namespace AyudasTecnologicas.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(Product productModel)
+        public async Task<IActionResult> Delete(TechnicalServices productModel)
         {
-            Product product = await _context.Products
-                .Include(p => p.ProductImages)
-                .Include(p => p.ProductCategories)
+            TechnicalServices product = await _context.Products
+                .Include(p => p.ServicesImages)
+                .Include(p => p.ServicesCategories)
                 .FirstOrDefaultAsync(p => p.Id == productModel.Id);
 
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
 
-            foreach (ProductImage productImage in product.ProductImages)
+            foreach (ServicesImage productImage in product.ServicesImages)
                 await _azureBlobHelper.DeleteAzureBlobAsync(productImage.ImageId, "products");
 
             return RedirectToAction(nameof(Index));
